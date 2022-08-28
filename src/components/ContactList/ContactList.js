@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import PropTypes from 'prop-types';
 import ContactInput from "../ContactInput/ContactInput";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { getContacts, getFilter, deleteItem } from "../../redux/contactsSlice";
 
 const ContactList = () => {
@@ -9,19 +8,21 @@ const ContactList = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
-
-  const visibleContacts = () => { 
-    return contacts.filter(contact =>
+  const visibleContacts = () => {
+    return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
   return (
     <List>
-      {visibleContacts()?.map(contact => (
+      {visibleContacts()?.map((contact) => (
         <Li key={contact.id}>
           <ContactInput name={contact.name} number={contact.number} />
-          <Button type="button" onClick={() => dispatch(deleteItem(contact.id))}>
+          <Button
+            type="button"
+            onClick={() => dispatch(deleteItem(contact.id))}
+          >
             Delete
           </Button>
         </Li>
