@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 import ContactInput from "../ContactInput/ContactInput";
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter, deleteItem } from "../../redux/contactsSlice";
@@ -9,19 +10,15 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
 
-  const visibleContacts = () => {
-    
-    const normalizedFilter = filter.toLowerCase();
-
+  const visibleContacts = () => { 
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
   return (
-    <>
     <List>
-      {visibleContacts.map(contact => (
+      {visibleContacts()?.map(contact => (
         <Li key={contact.id}>
           <ContactInput name={contact.name} number={contact.number} />
           <Button type="button" onClick={() => dispatch(deleteItem(contact.id))}>
@@ -30,7 +27,6 @@ const ContactList = () => {
         </Li>
       ))}
     </List>
-    </>
   );
 };
 const List = styled.ul`
